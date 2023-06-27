@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 
 export default function LogIn() { 
-    const [username, setUsername] = useState('');
+    const [username, setUsername] = useState("");
 
     type RootState = AppDispatch;
     const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
