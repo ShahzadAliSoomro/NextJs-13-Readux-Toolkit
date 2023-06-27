@@ -1,39 +1,41 @@
-"use client"
 import { useState } from 'react';
-import { LogIn, LogOut, toggleModerator } from "@/redux/features/auth-slice";
-import { useDispatch } from "react-redux";
+import { LogOut, toggleModerator } from "@/redux/features/auth-slice";
 import { AppDispatch } from '@/redux/store';
-import { useAppSelector } from '@/redux/store';
+import { useSelector, TypedUseSelectorHook } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-export default function LogIn() {
+
+export default function LogIn() { 
     const [username, setUsername] = useState('');
 
-    const distpatch = useDispatch<AppDispatch>();
-    const isAuth: useAppSelector((state) => state.authReducer.value.isAuth);
+    type RootState = AppDispatch;
+    const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+    const dispatch = useDispatch<AppDispatch>();
+    const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
 
     const onClickLogIn = () => {
-        distpatch(LogIn(username));
+        dispatch(LogIn(username));
     }
 
     const onClickToggle = () => {
-        distpatch(toggleModerator());
+        dispatch(toggleModerator());
     }
-    
+
     const onClickLogOut = () => {
-        distpatch(LogOut());
+        dispatch(LogOut());
     };
 
-  return (
-    <div>
-        <input className='text-black' type="text" onChange={(e) => setUsername(e.target.value)} />
-        <br></br>
-        <button onClick={onClickLogIn}>Log In</button>
-        <br></br>
-        <button onClick={onClickLogOut}>Log Out</button>
-        <br></br>
-         
-         {isAuth && <button onClick={onClickToggle}>Toggle Moderator Status</button>}
-        
-    </div>
-  )
+    return (
+        <div>
+            <input className='text-black' type="text" onChange={(e) => setUsername(e.target.value)} />
+            <br></br>
+            <button onClick={onClickLogIn}>Log In</button>
+            <br></br>
+            <button onClick={onClickLogOut}>Log Out</button>
+            <br></br>
+             
+            {isAuth && <button onClick={onClickToggle}>Toggle Moderator Status</button>}
+            
+        </div>
+    )
 }
