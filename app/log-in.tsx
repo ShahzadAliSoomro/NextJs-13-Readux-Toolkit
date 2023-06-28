@@ -11,7 +11,7 @@ export default function LogIn() {
     type RootState = AppDispatch;
     const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
     const dispatch = useDispatch<AppDispatch>();
-    const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
+    const isAuth = useAppSelector((state) => state.auth.value.isAuth);
 
     const onClickLogIn = () => {
         dispatch(LogIn(username));
